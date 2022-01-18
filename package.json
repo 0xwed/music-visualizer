@@ -2,10 +2,20 @@
   "name": "music-visualizer",
   "version": "1.0.0",
   "description": "",
-  "main": "src/MusicVisualizer.js",
+  "main": "src/MusicVisualizer.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon index",
+    "build": "tsc --build",
+    "clean": "tsc --build --clean"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.2",
+    "typescript": "^4.5.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
 }
