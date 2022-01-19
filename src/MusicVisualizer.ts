@@ -1,94 +1,80 @@
-import { clientWidth, clientHeight, vw, vh, vmin } from "./Measures"
-import { StylePropertiesOfNotes } from "./AbstractNotes"
-import { Notes } from './Notes';
+import { StylePropertiesOfNotes } from "./AbstractNotes.js"
+import { FillCanvas } from "./CanvasRenderingMethods.js";
+import { Notes } from './Notes.js';
 
-const canvas                                = <HTMLCanvasElement> document.createElement( "canvas" )
-const ctx : CanvasRenderingContext2D | null = canvas.getContext( "2d" )
+interface MusicVisualizerConstructorArgs {
+    animationType  : "notes",
+    ctx            : CanvasRenderingContext2D | null,
+    audioPath      : string,
+    particleStyles : StylePropertiesOfNotes,
+    particlesCount : number,
+}
 
-let audio        : HTMLAudioElement
-let audioContext : AudioContext
-let analyser     : AnalyserNode
-let source       : MediaElementAudioSourceNode
+export class MusicVisualizer {
+    public    ctx                : CanvasRenderingContext2D | null
 
-let notesStyleProperties : StylePropertiesOfNotes
-let notesCount : number
-let notes : Notes
+    protected animationType      : string
+    protected audio              : HTMLAudioElement
+    protected audioContext       : AudioContext
+    protected analyser           : AnalyserNode
+    protected source             : MediaElementAudioSourceNode
+    protected particles          : Notes
 
-function Play () : void {
-    if (audioContext.state === "suspended") {
-        audioContext.resume()
+    private   animationRequestID : number
+
+    constructor ({ ctx, audioPath, particleStyles, particlesCount = 100, animationType = "notes" } : MusicVisualizerConstructorArgs ) {
+        this.ctx           = ctx
+        this.animationType = animationType
+
+        const notesArgs    = {
+            ctx,
+            notesCount           : particlesCount,
+            notesStyleProperties : particleStyles
+        }
+        this.particles     = new Notes( notesArgs )
+
+        this.audio         = new Audio( audioPath )
+        this.audioContext  = new AudioContext()
+        this.analyser      = this.audioContext.createAnalyser()
+        this.source        = this.audioContext.createMediaElementSource( this.audio )
+    
+        this.source.connect( this.analyser )
+        this.analyser.connect( this.audioContext.destination )
+
+        this.animationRequestID = 0
+
+        document.documentElement.append( this.audio )
     }
 
-    audio.play()
-}
+    private _PlayAudio () : void {
+        if ( this.audioContext.state === "suspended" ) {
+            this.audioContext.resume()
+        }
 
-function Stop () : void {
-    audio.pause()
-}
-
-function ResizeCanvas () : void {
-    canvas.width  = clientWidth
-    canvas.height = clientHeight
-}
-
-function ClearCanvas () {
-    ctx?.fillRect( 0, 0, clientWidth, clientHeight )
-}
-
-function FillCanvas ( opacity = 1 ) {
-    if( ctx?.fillStyle ) {
-        ctx.fillStyle = `rgba( 0, 0, 0, ${opacity} )`
+        this.audio.play()
     }
-    ctx?.fillRect( 0, 0, clientWidth, clientHeight )
+
+    private _StopAudio () : void {
+        this.audio.pause()
+    }
+
+    public Play () : void {
+        this._PlayAudio()
+
+        this.animationRequestID = requestAnimationFrame(() => this._Draw())
+    }
+    
+    public Stop () : void {
+        this._StopAudio()
+        cancelAnimationFrame( this.animationRequestID )
+    }
+
+    private _Draw () : void {
+        this.particles.Play( this.analyser )
+
+        this.animationRequestID = requestAnimationFrame(() => {
+            FillCanvas({ ctx: this.ctx })
+            this._Draw()
+        })
+    }
 }
-
-function DrawCanvas () {
-    notes.Play( analyser )
-}
-
-function RenderCanvas () {
-    requestAnimationFrame( () => {
-        // ClearCanvas ()
-        FillCanvas  ()
-        DrawCanvas  ()
-        RenderCanvas()
-    } )
-}
-
-function PlayerInit ( audioPath : string = "src/audio.mp3" ) : void {
-    audio         = new Audio( audioPath )
-    audioContext  = new AudioContext()
-    analyser      = audioContext.createAnalyser()
-    source        = audioContext.createMediaElementSource(audio)
-
-    source.connect(analyser)
-    analyser.connect(audioContext.destination)
-
-    ResizeCanvas()
-    RenderCanvas()
-
-    const playButton : HTMLElement = document.createElement( "button" )
-    const stopButton : HTMLElement = document.createElement( "button" )
-
-    playButton.textContent = "Play"
-    stopButton.textContent = "Stop"
-
-    playButton.addEventListener( "click", Play )
-    stopButton.addEventListener( "click", Stop )
-
-    document.body.append( playButton, stopButton, audio, canvas )
-}
-
-notesStyleProperties = {
-    x         : vw(0),
-    y         : vh(100),
-    width     : vw(100),
-    height    : 0,
-    gap       : vmin(0.1),
-    fillStyle : "white"
-}
-notesCount = 300
-notes      = new Notes({ ctx, notesCount, notesStyleProperties })
-
-window.addEventListener( "load",   () => PlayerInit() )
-window.addEventListener( "resize", () => ResizeCanvas() )

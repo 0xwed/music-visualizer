@@ -1,8 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.AbstractNotes = void 0;
-const Note_1 = require("./Note");
-class AbstractNotes {
+import { Note } from "./Note.js";
+export class AbstractNotes {
     constructor({ ctx, notesCount, notesStyleProperties }) {
         this.ctx = ctx;
         this.count = notesCount;
@@ -33,10 +30,9 @@ class AbstractNotes {
             throw new Error("Context is not defined");
         }
         for (let i = 0; i < this.count; i++) {
-            this.notes.push(new Note_1.Note(this.ctx, this.noteProperties));
+            this.notes.push(new Note(this.ctx, this.noteProperties));
             this.changeNotePositionX();
         }
     }
 }
-exports.AbstractNotes = AbstractNotes;
 //# sourceMappingURL=AbstractNotes.js.map

@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.AbstractCanvasElement = void 0;
-class AbstractCanvasElement {
+export class AbstractCanvasElement {
     constructor(ctx, properties) {
         var _a, _b, _c;
         this.ctx = ctx;
@@ -24,5 +21,4 @@ class AbstractCanvasElement {
         this._Update();
     }
 }
-exports.AbstractCanvasElement = AbstractCanvasElement;
 //# sourceMappingURL=AbstractCanvasElement.js.map

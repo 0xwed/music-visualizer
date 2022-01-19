@@ -1,8 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Notes = void 0;
-const AbstractNotes_1 = require("./AbstractNotes");
-class Notes extends AbstractNotes_1.AbstractNotes {
+import { AbstractNotes } from "./AbstractNotes.js";
+export class Notes extends AbstractNotes {
     constructor({ ctx, notesCount, notesStyleProperties }) {
         super({ ctx, notesCount, notesStyleProperties });
     }
@@ -17,5 +14,4 @@ class Notes extends AbstractNotes_1.AbstractNotes {
         });
     }
 }
-exports.Notes = Notes;
 //# sourceMappingURL=Notes.js.map
