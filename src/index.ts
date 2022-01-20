@@ -1,6 +1,6 @@
-import { clientWidth, clientHeight, vw, vh, vmin } from "./Measures.js"
-import { MusicVisualizer } from './MusicVisualizer.js';
-import { StylePropertiesOfNotes } from './AbstractNotes.js';
+import { clientWidth, clientHeight, vw, vh, vmin } from "./Measures"
+import { MusicVisualizer } from './MusicVisualizer';
+import { StylePropertiesOfNotes } from './AbstractNotes';
 
 const canvas                                = <HTMLCanvasElement> document.createElement( "canvas" )
 const ctx : CanvasRenderingContext2D | null = canvas.getContext( "2d" )

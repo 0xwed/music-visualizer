@@ -1,4 +1,4 @@
-import { AbstractCanvasElement } from "./AbstractCanvasElement.js"
+import { AbstractCanvasElement } from "./AbstractCanvasElement"
 
 export class Note extends AbstractCanvasElement {
     public SetPitchOfNote ( height : number ) : void {

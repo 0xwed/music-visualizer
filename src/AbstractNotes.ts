@@ -1,5 +1,5 @@
-import { Note } from "./Note.js"
-import { CanvasElementProperties } from "./AbstractCanvasElement.js"
+import { Note } from "./Note"
+import { CanvasElementProperties } from "./AbstractCanvasElement"
 
 export interface StylePropertiesOfNotes extends CanvasElementProperties {
     gap : number
