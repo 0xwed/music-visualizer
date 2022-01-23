@@ -18,7 +18,7 @@ const notesCount : number = 300
 const musicVisualizer : MusicVisualizer = new MusicVisualizer({
     ctx,
     animationType  : "notes",
-    audioPath      : "../media/audio.mp3",
+    audioPath      : "audio.mp3",
     particlesCount : notesCount,
     particleStyles : noteStylesProperties,
 })
