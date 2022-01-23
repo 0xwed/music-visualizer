@@ -1,6 +1,6 @@
-import { StylePropertiesOfNotes } from "./AbstractNotes.js"
-import { FillCanvas } from "./CanvasRenderingMethods.js";
-import { Notes } from './Notes.js';
+import { StylePropertiesOfNotes } from "./AbstractNotes"
+import { FillCanvas } from "./CanvasRenderingMethods";
+import { Notes } from './Notes';
 
 interface MusicVisualizerConstructorArgs {
     animationType  : "notes",

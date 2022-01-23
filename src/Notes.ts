@@ -1,4 +1,4 @@
-import { NotesConstructorArgs, AbstractNotes } from "./AbstractNotes.js"
+import { NotesConstructorArgs, AbstractNotes } from "./AbstractNotes"
 
 export class Notes extends AbstractNotes {
     constructor ( { ctx, notesCount, notesStyleProperties } : NotesConstructorArgs ) {

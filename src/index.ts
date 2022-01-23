@@ -1,6 +1,6 @@
-import { clientWidth, clientHeight, vw, vh, vmin } from "./Measures.js"
-import { MusicVisualizer } from './MusicVisualizer.js';
-import { StylePropertiesOfNotes } from './AbstractNotes.js';
+import { clientWidth, clientHeight, vw, vh, vmin } from "./Measures"
+import { MusicVisualizer } from './MusicVisualizer';
+import { StylePropertiesOfNotes } from './AbstractNotes';
 
 const canvas                                = <HTMLCanvasElement> document.createElement( "canvas" )
 const ctx : CanvasRenderingContext2D | null = canvas.getContext( "2d" )
@@ -18,7 +18,7 @@ const notesCount : number = 300
 const musicVisualizer : MusicVisualizer = new MusicVisualizer({
     ctx,
     animationType  : "notes",
-    audioPath      : "../media/audio.mp3",
+    audioPath      : "audio.mp3",
     particlesCount : notesCount,
     particleStyles : noteStylesProperties,
 })
