@@ -1,4 +1,4 @@
-import { clientWidth, clientHeight } from "./Measures.js"
+import { clientWidth, clientHeight } from "./Measures"
 
 interface Args {
     ctx     : CanvasRenderingContext2D | null,
