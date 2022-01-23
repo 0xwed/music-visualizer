@@ -4,7 +4,7 @@
   "description": "",
   "main": "./dist/music-visualizer/index.js",
   "scripts": {
-    "build": "ncc build ./src/index.ts -o ./dist/music-visualizer/index.js -m"
+    "build": "ncc build ./src/index.ts -o ./dist/music-visualizer/ -m"
   },
   "author": "",
   "license": "ISC",
